@@ -4,6 +4,10 @@ const input = document.querySelector('#task-input');
 const taskList = document.querySelector('#task-list');
 const filterButtons = document.querySelectorAll('.filters button');
 let currentFilter = 'all';
+//Busqueda de tareas
+const searchInput = document.querySelector('#search-input');
+let searchText = '';
+
 
 
 filterButtons.forEach(button => {
@@ -11,6 +15,13 @@ filterButtons.forEach(button => {
     currentFilter = button.dataset.filter;
     renderTasks();
   });
+});
+
+
+//Busqueda de tarea
+searchInput.addEventListener('input', () => {
+  searchText = searchInput.value.toLowerCase();
+  renderTasks();
 });
 
 
@@ -68,6 +79,13 @@ function renderTasks() {
   if (currentFilter === 'completed') {
     filteredTasks = tasks.filter(task => task.completed);
   }
+
+  if (searchText !== '') {
+    filteredTasks = filteredTasks.filter(task =>
+      task.text.toLowerCase().includes(searchText)
+    );
+  }
+
 
   filteredTasks.forEach(task => {
     const li = document.createElement('li');
