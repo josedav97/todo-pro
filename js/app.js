@@ -2,7 +2,7 @@
 
 const form = document.querySelector('#task-form');
 const input = document.querySelector('#task-input');
-const tasklist = document.querySelector('#task-list');
+const taskList = document.querySelector('#task-list');
 
 
 //Estado de la aplicacion
@@ -20,13 +20,13 @@ form.addEventListener('submit', function (e){
         return;
     }
 
-    const newTaks = {
+    const newTask = {
         id: Date.now(),
         text: taskText,
         completed: false
     };
 
-    tasks.push(newTaks);
+    tasks.push(newTask);
     renderTasks();
 
     input.value = '';
@@ -35,16 +35,34 @@ form.addEventListener('submit', function (e){
 // Renderizar tareas
 
 function renderTasks() {
-    tasklist.innerHTML = '';
+    taskList.innerHTML = '';
 
     tasks.forEach(function(task){
         const li = document.createElement('li');
+
         li.textContent = task.text;
 
-        if(task.completed) {
+        if(task.completed){
             li.classList.add('completed');
         }
 
-        tasklist.appendChild(li);
-    });
+        // Botón eliminar
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '✖️';
+
+        deleteBtn.addEventListener('click', function(){
+            deleteTask(task.id);
+        });
+
+        li.appendChild(deleteBtn);
+        taskList.appendChild(li);
+    })
+}
+
+function deleteTask(id) {
+  tasks = tasks.filter(function (task) {
+    return task.id !== id;
+  });
+
+  renderTasks();
 }
