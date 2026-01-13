@@ -1,8 +1,17 @@
 //Seleccionar elementos del DOM
-
 const form = document.querySelector('#task-form');
 const input = document.querySelector('#task-input');
 const taskList = document.querySelector('#task-list');
+const filterButtons = document.querySelectorAll('.filters button');
+let currentFilter = 'all';
+
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    currentFilter = button.dataset.filter;
+    renderTasks();
+  });
+});
 
 
 //Estado de la aplicacion
@@ -50,7 +59,17 @@ form.addEventListener('submit', function (e) {
 function renderTasks() {
   taskList.innerHTML = '';
 
-  tasks.forEach(function (task) {
+  let filteredTasks = tasks;
+
+  if (currentFilter === 'pending') {
+    filteredTasks = tasks.filter(task => !task.completed);
+  }
+
+  if (currentFilter === 'completed') {
+    filteredTasks = tasks.filter(task => task.completed);
+  }
+
+  filteredTasks.forEach(task => {
     const li = document.createElement('li');
     li.textContent = task.text;
 
@@ -58,19 +77,17 @@ function renderTasks() {
       li.classList.add('completed');
     }
 
-    // Toggle completed
-    li.addEventListener('click', function () {
+    li.addEventListener('click', () => {
       task.completed = !task.completed;
       saveTasks();
       renderTasks();
     });
 
-    // Botón eliminar
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = '✖️';
 
-    deleteBtn.addEventListener('click', function (e) {
-      e.stopPropagation(); // evita marcar como completed
+    deleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       deleteTask(task.id);
     });
 
@@ -78,6 +95,7 @@ function renderTasks() {
     taskList.appendChild(li);
   });
 }
+
 
 // --------------------
 // Eliminar
