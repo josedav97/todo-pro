@@ -1,0 +1,123 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #f4f6f8;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor */
+.container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Formulario */
+#task-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#task-input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#task-form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+#task-form button:hover {
+  background: #1e4fd6;
+}
+
+/* Filtros */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.filters button {
+  flex: 1;
+  margin: 0 0.2rem;
+  padding: 0.4rem;
+  border: none;
+  border-radius: 6px;
+  background: #e5e7eb;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background: #d1d5db;
+}
+
+/* Lista */
+#task-list {
+  list-style: none;
+}
+
+#task-list li {
+  background: #f9fafb;
+  padding: 0.5rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+/* Tarea completada */
+#task-list li.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Botón eliminar */
+#task-list button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Input edición */
+#task-list input {
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+#search-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
