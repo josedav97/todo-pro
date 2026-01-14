@@ -95,11 +95,18 @@ function renderTasks() {
       li.classList.add('completed');
     }
 
-    li.addEventListener('click', () => {
-      task.completed = !task.completed;
-      saveTasks();
-      renderTasks();
+    li.addEventListener('click', (e) => {
+        if (e.detail === 2) return; // ignora doble click
+        task.completed = !task.completed;
+        saveTasks();
+        renderTasks();
     });
+
+
+    li.addEventListener('dblclick', () => {
+        enableEditMode(li, task);
+    });
+
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = '✖️';
@@ -120,6 +127,34 @@ function renderTasks() {
 // --------------------
 function deleteTask(id) {
   tasks = tasks.filter(task => task.id !== id);
+  saveTasks();
+  renderTasks();
+}
+
+function enableEditMode(li, task) {
+  const inputEdit = document.createElement('input');
+  inputEdit.type = 'text';
+  inputEdit.value = task.text;
+
+  li.textContent = '';
+  li.appendChild(inputEdit);
+  inputEdit.focus();
+
+  inputEdit.addEventListener('blur', () => {
+    saveEdit(inputEdit.value, task);
+  });
+
+  inputEdit.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      saveEdit(inputEdit.value, task);
+    }
+  });
+}
+
+function saveEdit(newText, task) {
+  if (newText.trim() === '') return;
+
+  task.text = newText.trim();
   saveTasks();
   renderTasks();
 }
